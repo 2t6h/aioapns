@@ -191,10 +191,10 @@ class APNsBaseClientProtocol(H2Protocol):
             headers.append(("apns-collapse-id", request.collapse_key))
         if request.push_type is not None:
             headers.append(("apns-push-type", request.push_type.value))
+        if request.channel_id is not None:
+            headers.append(("apns-channel-id", request.channel_id))
         if self.auth_provider:
             headers.append(("authorization", self.auth_provider.get_header()))
-        if self.channel_id is not None:
-            headers.append(("apns-channel-id", request.channel_id))
 
         self.conn.send_headers(stream_id=stream_id, headers=headers)
         try:
